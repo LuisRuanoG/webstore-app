@@ -1,16 +1,78 @@
-# React + Vite
+# Frontend - Web Store
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend de la tienda web creado con React y Vite.
 
-Currently, two official plugins are available:
+## Requisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js LTS: https://nodejs.org/en/download
+- npm, que se instala junto con Node.js
 
-## React Compiler
+Para verificar que Node.js y npm quedaron instalados:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+node -v
+npm -v
+```
 
-## Expanding the ESLint configuration
+## Instalacion en Windows
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Desde PowerShell o la terminal de VS Code:
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+El servidor de desarrollo normalmente queda disponible en:
+
+```text
+http://localhost:5173
+```
+
+## Instalacion en macOS
+
+Desde Terminal:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+El servidor de desarrollo normalmente queda disponible en:
+
+```text
+http://localhost:5173
+```
+
+## Comandos utiles
+
+Ejecutar el proyecto en modo desarrollo:
+
+```bash
+npm run dev
+```
+
+Crear una version para produccion:
+
+```bash
+npm run build
+```
+
+Previsualizar la version de produccion:
+
+```bash
+npm run preview
+```
+
+Revisar problemas de estilo o lint:
+
+```bash
+npm run lint
+```
+
+## Notas
+
+- Si aparece un error porque el puerto `5173` ya esta ocupado, Vite puede abrir otro puerto automaticamente.
+- Si instalas nuevas dependencias, ejecuta `npm install` otra vez para actualizar `node_modules`.

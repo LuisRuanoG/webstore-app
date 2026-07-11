@@ -1,26 +1,39 @@
 from typing import Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
+from datetime import datetime
+from decimal import Decimal
 
-# 1. EL MOLDE PADRE: Contiene los datos que comparten la entrada y la salida
 class ProductBase(BaseModel):
-    name: str = Field(..., description="Nombre del producto")
-    description: str = Field(..., description="Descripción detallada")
-    price: float = Field(..., gt=0, description="El precio debe ser mayor a 0")
-    stock: int = Field(..., ge=0, description="El stock no puede ser negativo")
-    image_url: Optional[str] = None
+    name: str = Field(..., description="Product name", max_length=100)
 
 
-# 2. EL MOLDE DE ENTRADA (Para POST / PUT): Se usa cuando React nos envía datos
-# Nota: No tiene ID porque la base de datos lo genera sola al guardar
-class ProductCreate(ProductBase):
-    pass  # Hereda todo lo de ProductBase sin cambios adicionales
-
-
-# 3. EL MOLDE DE SALIDA (Para GET): Lo que FastAPI le responde a tu Axios
-# Nota: Aquí SÍ incluimos el ID porque el producto ya existe en la base de datos
 class ProductResponse(ProductBase):
     id: int
+    name: str
+    description: Optional[str] = None
+    price: Decimal = Field(default=0.0, ge=0.0, max_digits=10, decimal_places=2)
+    stock_quantity: int
+    category_id: Optional[int] = None
+    is_active: bool
+    created_at: datetime
+    updated_at: datetime
+    sku: Optional[str] = Field(default=None, max_length=50, description="Stock Keeping Unit (SKU)")
 
-    # Esta pequeña configuración le permite a Pydantic leer los datos
-    # directamente desde tu base de datos (SQLModel/SQLAlchemy) y transformarlos a JSON
     model_config = {"from_attributes": True}
+
+class ProductCreate(ProductBase):
+    description: Optional[str] = None
+    price: Decimal = Field(default=0.0, ge=0.0, max_digits=10, decimal_places=2)
+    stock_quantity: int = Field(default=0, ge=0)
+    category_id: Optional[int] = None
+    is_active: bool = Field(default=True)
+    sku : Optional[str] = Field(default=None, max_length=50, description="Stock Keeping Unit (SKU)")
+
+
+class ProductUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    price: Optional[Decimal] = None
+    category_id: Optional[int] = None
+    is_active: Optional[bool] = None
+
