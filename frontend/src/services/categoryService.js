@@ -9,7 +9,7 @@ export const getAllCategories = () =>
     api.get('/categories/').then((res) => res.data);
 
 //Función para patch una categoría en la base de datos
-export const patchCategory = (id, name) =>
+export const updateCategory = (id, name) =>
     api.patch(`/categories/${id}/`, {name}).then((res) => res.data);
 
 

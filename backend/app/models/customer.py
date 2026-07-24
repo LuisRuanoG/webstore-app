@@ -5,15 +5,14 @@ from sqlalchemy import Column, DateTime, String
 from sqlmodel import Field, SQLModel
 
 
-class Staff(SQLModel, table=True):
-    __tablename__ = "staff"
+class Customer(SQLModel, table=True):
+    __tablename__ = "customers"
 
     id: Optional[int] = Field(default=None, primary_key=True)
-    firebase_staff_id: Optional[str] = Field(default=None, sa_column=Column(String, unique=True, nullable=True))
+    firebase_costumer_id: Optional[str] = Field(default=None, sa_column=Column(String, unique=True, nullable=True))
     email: str = Field(sa_column=Column(String, unique=True, nullable=False))
     name: str
-    role: str
-    is_active: bool = Field(default=True)
+    phone: str
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(
         default_factory=lambda: datetime.now(timezone.utc),
